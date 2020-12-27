@@ -16,6 +16,7 @@ namespace UserInterface.Areas.User.Controllers
             objBs = new EmployeeBs();
         }
         // GET: User/Employee
+        //changes
         public ActionResult Index()
         {
             var employee=objBs.GetAll();
