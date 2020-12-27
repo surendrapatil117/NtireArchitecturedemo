@@ -35,6 +35,7 @@ namespace UserInterface.Areas.User.Controllers
                     objBs.Insert(emp);
                     TempData["SuccessMsg"] = "Data Insertd Successfully";
                     return RedirectToAction("Create");
+
                 }
                 else {
                     return View();
@@ -43,6 +44,7 @@ namespace UserInterface.Areas.User.Controllers
 
             }
             catch(Exception exec) {
+                //error
                 TempData["ErrorMsg"] = "Something goes Wrong" + exec.Message;
                 return RedirectToAction("Create");
             }
