@@ -26,6 +26,8 @@ namespace UserInterface.Areas.User.Controllers
         public ActionResult Create(Employee emp)
         {
             try {
+
+
                 //added entry date
                 emp.Entrydate = DateTime.Now;
                 if (ModelState.IsValid)
