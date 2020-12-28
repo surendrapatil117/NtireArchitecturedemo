@@ -16,13 +16,33 @@ namespace UserInterface.Areas.User.Controllers
             objBs = new EmployeeBs();
         }
         // GET: User/Employee
-        public ActionResult Index()
+        [HttpPost]
+        public ActionResult Index(string searchtext)
         {
-            var employee=objBs.GetAll();
+            if (!string.IsNullOrEmpty(searchtext))
+            {
+                var employee = objBs.GetEmployeedata(searchtext);
+                return View(employee);
+            }
+            else {
 
+                return Json(new { result = "No result Found", JsonRequestBehavior.AllowGet });
+            }
+              
+        }
+        public ActionResult Index(string SortOrder, string SortBy,int PageNumber=1)
+        {
+            ViewBag.SortOrder = SortOrder;
+            ViewBag.SortBy = SortBy;
+            var employee = objBs.GetAll(SortOrder, SortBy,PageNumber);
+            int totalrowcount = objBs.Getrowcount();
+            // viewbag.totalpage = Math.Ceiling(db.Employees.Count() / 10.0);
+            ViewBag.PageNumber = PageNumber;
+          ViewBag.totalpage= Math.Ceiling(totalrowcount / 5.0);
             return View(employee);
         }
-       // [HttpPost]
+       
+        // [HttpPost]
         public ActionResult Create(Employee emp)
         {
             try {

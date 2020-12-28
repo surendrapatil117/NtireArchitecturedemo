@@ -16,9 +16,19 @@ namespace BusinessLogicLayer
         {
             dbobj = new EmployeeDb();
         }
-        public IEnumerable<Employee> GetAll()
+        public IEnumerable<Employee> GetAll(string SortOrder,string SortBy,int PageNumber)
         {
-            return dbobj.GetAll();
+            return dbobj.GetAll(SortOrder, SortBy,PageNumber);
+
+        }
+        public IEnumerable<Employee> GetEmployeedata(string searchtext)
+        {
+           return dbobj.GetEmployeedata(searchtext);
+        }
+            public int Getrowcount()
+        {
+            return dbobj.Getrowcount();
+
 
         }
         public Employee GetbyId(int Id)

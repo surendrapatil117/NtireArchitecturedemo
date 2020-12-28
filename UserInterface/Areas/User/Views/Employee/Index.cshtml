@@ -7,63 +7,185 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Position)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Office)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Age)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Salary)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Entrydate)
-        </th>
-        <th></th>
-    </tr>
+@using (Html.BeginForm("Index", "Employee", new { area = "User" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Position)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Office)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Age)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Salary)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PF)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Entrydate)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })
-    </td>
-</tr>
-}
+    <div class="form-horizontal">
+        <h4>Create Employee</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                @Html.Editor("searchtext", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
 
-</table>
+                <div class="col-md-2">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+  }
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.Name)*@
+                    @Html.ActionLink("Name", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "Name", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+                </th>
+                <th>
+                    @Html.ActionLink("Position", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "Position", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+                </th>
+                <th>
+                    @Html.ActionLink("Office", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "Office", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+
+                </th>
+                <th>
+                    @Html.ActionLink("Age", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "Age", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+
+
+                </th>
+                <th>
+                    @Html.ActionLink("Salary", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "Salary", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+
+
+                </th>
+                <th>
+                    @Html.ActionLink("PF", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "PF", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+
+
+                </th>
+                <th>
+                    @Html.ActionLink("Entrydate", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "Entrydate", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Position)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Office)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Age)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Entrydate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+
+        <div>
+            @{
+                if (ViewBag.totalpage != null)
+                {
+                    double totalpages = ViewBag.totalpage;
+                        <ul class="pagination">
+                            @if (ViewBag.PageNumber == 1)
+                            {
+                                <li>
+                                    @Html.ActionLink("Preveous", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "Name" : ViewBag.SortBy, PageNumber = ViewBag.PageNumber })
+
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    @Html.ActionLink("Preveous", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "Name" : ViewBag.SortBy, PageNumber = ViewBag.PageNumber - 1 })
+
+                                </li>
+
+                            }
+
+
+                            @for (int i = 1; i < totalpages; i++)
+                            {
+                                if (i == ViewBag.PageNumber)
+                                {
+                                    <li class="active">
+                                        @Html.ActionLink(i.ToString(), "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "Name" : ViewBag.SortBy, PageNumber = i })
+                                    </li>
+
+                                }
+                                else
+                                {
+                                    <li>
+                                        @Html.ActionLink(i.ToString(), "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "Name" : ViewBag.SortBy, PageNumber = i })
+                                    </li>
+                                }
+
+
+                            }
+                            @if (ViewBag.PageNumber == totalpages)
+                            {
+                                <li>
+                                    @Html.ActionLink("Next", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "Name" : ViewBag.SortBy, PageNumber = ViewBag.PageNumber})
+
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    @Html.ActionLink("Next", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "Name" : ViewBag.SortBy, PageNumber = ViewBag.PageNumber + 1 })
+
+                                </li>
+
+                            }
+                        </ul>
+                    @*for (int i = 1; i < totalpages; i++)
+                    {
+                    <ul class="pagination">
+                        @if (i == ViewBag.PageNumber)
+                        {
+                            <li class="active">
+                                @Html.ActionLink(i.ToString(), "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "Name" : ViewBag.SortBy, PageNumber = i })
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li>
+                                @Html.ActionLink(i.ToString(), "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "Name" : ViewBag.SortBy, PageNumber = i })
+                            </li>
+                        }
+
+
+                    </ul>
+
+                        }*@
+                    }
+
+                }
+
+        </div>
+

@@ -15,10 +15,189 @@ namespace DataAccessLayer
         {
             db = new MvcCRUDDB1Context();
         }
-        public IEnumerable<Employee> GetAll()
+        public IEnumerable<Employee> GetAll(string SortOrder, string SortBy, int PageNumber)
         {
-           return db.Employees.ToList();
-        
+            //  List<Employee> obj = new List<Employee>();
+            var employee = db.Employees.ToList();
+            switch (SortBy) {
+                case "Name":
+                    switch (SortOrder)
+                    {
+                        case "Asc":
+                            employee = employee.OrderBy(x => x.Name).ToList();
+                            break;
+
+                        case "Desc":
+                            employee = employee.OrderByDescending(x => x.Name).ToList();
+                            break;
+                        default:
+                            employee = employee.OrderBy(x => x.Name).ToList();
+                            break;
+
+                    }
+                    break;
+
+                case "Salary":
+                    switch (SortOrder)
+                    {
+                        case "Asc":
+                            employee = employee.OrderBy(x => x.Salary).ToList();
+                            break;
+
+                        case "Desc":
+                            employee = employee.OrderByDescending(x => x.Salary).ToList();
+                            break;
+                        default:
+                            employee = employee.OrderBy(x => x.Salary).ToList();
+                            break;
+                    }
+                    break;
+
+                case "Office":
+                    switch (SortOrder)
+                    {
+                        case "Asc":
+                            employee = employee.OrderBy(x => x.Office).ToList();
+                            break;
+
+                        case "Desc":
+                            employee = employee.OrderByDescending(x => x.Office).ToList();
+                            break;
+                        default:
+                            employee = employee.OrderBy(x => x.Office).ToList();
+                            break;
+                    }
+                    break;
+                case "Position":
+                    switch (SortOrder)
+                    {
+                        case "Asc":
+                            employee = employee.OrderBy(x => x.Position).ToList();
+                            break;
+
+                        case "Desc":
+                            employee = employee.OrderByDescending(x => x.Position).ToList();
+                            break;
+                        default:
+                            employee = employee.OrderBy(x => x.Position).ToList();
+                            break;
+                    }
+                    break;
+
+                case "PF":
+                    switch (SortOrder)
+                    {
+                        case "Asc":
+                            employee = employee.OrderBy(x => x.PF).ToList();
+                            break;
+
+                        case "Desc":
+                            employee = employee.OrderByDescending(x => x.PF).ToList();
+                            break;
+                        default:
+                            employee = employee.OrderBy(x => x.PF).ToList();
+                            break;
+                    }
+                    break;
+
+                case "Age":
+                    switch (SortOrder)
+                    {
+                        case "Asc":
+                            employee = employee.OrderBy(x => x.Age).ToList();
+                            break;
+
+                        case "Desc":
+                            employee = employee.OrderByDescending(x => x.Age).ToList();
+                            break;
+                        default:
+                            employee = employee.OrderBy(x => x.Age).ToList();
+                            break;
+                    }
+                    break;
+                case "Entrydate":
+                    switch (SortOrder)
+                    {
+                        case "Asc":
+                            employee = employee.OrderBy(x => x.Entrydate).ToList();
+                            break;
+
+                        case "Desc":
+                            employee = employee.OrderByDescending(x => x.Entrydate).ToList();
+                            break;
+                        default:
+                            employee = employee.OrderBy(x => x.Entrydate).ToList();
+                            break;
+                    }
+                    break;
+
+                default:
+                    switch (SortOrder)
+                    {
+                        case "Asc":
+                            employee = employee.OrderBy(x => x.Entrydate).ToList();
+                            break;
+
+                        case "Desc":
+                            employee = employee.OrderByDescending(x => x.Entrydate).ToList();
+                            break;
+                        default:
+                            employee = employee.OrderBy(x => x.Entrydate).ToList();
+                            break;
+                    }
+                    break;
+
+            }
+
+            employee = employee.Skip((PageNumber - 1) * 5).Take(5).ToList();
+
+
+
+            //switch (SortOrder)
+            //{
+            //    case "Asc":
+            //        {
+            //            obj= db.Employees.OrderBy(x => x.Name).ToList();
+            //            break;
+            //        }
+            //    case "Desc":
+            //        {
+            //            obj= db.Employees.OrderByDescending(x => x.Name).ToList();
+            //            break;
+            //        }
+            //  default:
+            //        {
+            //            obj=db.Employees.OrderBy(x => x.Name).ToList();
+            //            break;
+            //        }
+
+            //}
+
+            return employee;
+
+        }
+        public IEnumerable<Employee> GetEmployeedata(string searchtext)
+        {
+            string numString = searchtext; //"1287543.0" will return false for a long
+            int number1 = 0;
+            bool canConvert = int.TryParse(numString, out number1);
+            if (canConvert == true)
+            {
+                return db.Employees.Where(x => x.Name.Contains(searchtext) || x.Office.Contains(searchtext) || x.Position.Contains(searchtext) || x.Salary == number1 || x.PF == number1);
+
+            }
+            else
+            {
+
+                return db.Employees.Where(x => x.Name.Contains(searchtext) || x.Office.Contains(searchtext) || x.Position.Contains(searchtext));
+
+            }
+
+        }
+
+        public int Getrowcount()
+        {
+            return db.Employees.Count();       
         }
         public Employee GetbyId(int Id)
         {
