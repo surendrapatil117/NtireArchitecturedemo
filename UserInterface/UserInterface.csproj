@@ -154,9 +154,14 @@
     <Content Include="Areas\Common\Views\web.config" />
     <Content Include="Areas\Common\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Common\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Common\Views\Home\Index.cshtml" />
     <Content Include="Areas\User\Views\Employee\Index.cshtml" />
     <Content Include="Areas\User\Views\Employee\Create.cshtml" />
+    <Content Include="Areas\Common\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Common\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Common\Views\Home\About.cshtml" />
+    <Content Include="Areas\Common\Views\Home\Contact.cshtml" />
+    <Content Include="Areas\User\Views\Employee\Edit.cshtml" />
+    <Content Include="Areas\User\Views\Shared\_Display_Error_Msg.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -193,7 +198,6 @@
     <Folder Include="Areas\Security\Data\" />
     <Folder Include="Areas\Security\Views\Shared\" />
     <Folder Include="Areas\User\Data\" />
-    <Folder Include="Areas\User\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>

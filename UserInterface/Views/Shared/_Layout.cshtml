@@ -20,12 +20,29 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
-                    <li>@Html.ActionLink("Common Home", "Index", new { Controller = "Home", area = "Common" })</li>
-                    <li>@Html.ActionLink("User Employee", "Index", new { Controller = "Employee", area = "User" })</li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <li>@Html.ActionLink("Show User", "Index", new { Controller = "Employee", area = "User" })</li>
+                        <li>@Html.ActionLink("Create User", "Create", new { Controller = "Employee", area = "User" })</li>
+
+                        <li>@Html.ActionLink("Logout", "Logout", new { Controller = "Home", area = "Common" })</li>
+
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Home", "Index", new { Controller = "Home", area = "Common" })</li>
+                        <li>@Html.ActionLink("About", "About",new { Controller = "Home", area = "Common" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", new { Controller = "Home", area = "Common" })</li>
+                        
+                        <li>@Html.ActionLink("Login", "Login", new { Controller = "Home", area = "Common" })</li>
+                    }
+
+
+
+
                 </ul>
             </div>
         </div>

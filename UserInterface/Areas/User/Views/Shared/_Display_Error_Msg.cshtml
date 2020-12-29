@@ -1,0 +1,38 @@
+﻿
+
+
+@if (TempData["SuccessMsg"] != null)
+{
+
+    <div class="alert alert-success alert-dismissible show">
+        <strong>Success!</strong> @TempData["SuccessMsg"].ToString();
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+
+}
+@if (TempData["ErrorMsg"] != null)
+{
+
+    <div class="alert alert-warning alert-dismissible show">
+        <strong>Warning!</strong> @TempData["ErrorMsg"].ToString()
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+
+}
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('.close').click(function () {
+                alert('closed button clicked');
+                //$('.closediv').fadeOut(500);
+            })
+        });
+
+
+
+    </script>
+}
+
+
