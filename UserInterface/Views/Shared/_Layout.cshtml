@@ -26,7 +26,12 @@
                     {
 
                         <li>@Html.ActionLink("Show User", "Index", new { Controller = "Employee", area = "User" })</li>
-                        <li>@Html.ActionLink("Create User", "Create", new { Controller = "Employee", area = "User" })</li>
+
+                       if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Create User", "Create", new { Controller = "Employee", area = "User" })</li>
+
+                        }
 
                         <li>@Html.ActionLink("Logout", "Logout", new { Controller = "Home", area = "Common" })</li>
 
@@ -34,9 +39,9 @@
                     else
                     {
                         <li>@Html.ActionLink("Home", "Index", new { Controller = "Home", area = "Common" })</li>
-                        <li>@Html.ActionLink("About", "About",new { Controller = "Home", area = "Common" })</li>
+                        <li>@Html.ActionLink("About", "About", new { Controller = "Home", area = "Common" })</li>
                         <li>@Html.ActionLink("Contact", "Contact", new { Controller = "Home", area = "Common" })</li>
-                        
+
                         <li>@Html.ActionLink("Login", "Login", new { Controller = "Home", area = "Common" })</li>
                     }
 

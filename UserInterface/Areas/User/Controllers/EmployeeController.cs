@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace UserInterface.Areas.User.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class EmployeeController : Controller
     {
         private EmployeeBs objBs;
@@ -41,6 +41,7 @@ namespace UserInterface.Areas.User.Controllers
         //    return View(employee);
         //}
         [AcceptVerbs(HttpVerbs.Get|HttpVerbs.Post)]
+        [Authorize(Roles = "Admin,Viewer")]
         public ActionResult Index(string searchtext, string SortOrder, string SortBy, int PageNumber = 1)
         {
            
@@ -74,11 +75,11 @@ namespace UserInterface.Areas.User.Controllers
         }
 
 
-        // [HttpPost]
-       
+       // [HttpPost]
+        [Authorize(Roles = "Admin,Author")]
         public ActionResult Create(Employee emp)
         {
-            try {
+          try {
 
                 emp.Entrydate = DateTime.Now;
                 if (ModelState.IsValid)
@@ -87,12 +88,13 @@ namespace UserInterface.Areas.User.Controllers
                     TempData["SuccessMsg"] = "Data Insertd Successfully";
                     return RedirectToAction("Create");
                 }
-                else {
+                else
+                {
                     return View();
                 }
 
 
-            }
+              }
             catch(Exception exec) {
                 TempData["ErrorMsg"] = "Something goes Wrong" + exec.Message;
                 return RedirectToAction("Create");

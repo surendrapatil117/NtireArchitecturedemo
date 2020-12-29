@@ -12,33 +12,35 @@ namespace UserInterface.Areas.Common.Controllers
     {
         MvcCRUDDB1Context db = new MvcCRUDDB1Context();
         // GET: Common/Home
-
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
-
+        [AllowAnonymous]
         public ActionResult About()
         {
             return View();
         }
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             return View();
         }
-
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Login(User_Login user)
         {
             var count = db.User_Login.Where(x => x.Username == user.Username && x.Password == user.Password).Count();
             if (count > 0)
             {
                 FormsAuthentication.SetAuthCookie(user.Username, false);
-                return RedirectToAction("Create", "Employee", new { area = "User" });
+                return RedirectToAction("Index", "Employee", new { area = "User" });
             }
             else
             {
