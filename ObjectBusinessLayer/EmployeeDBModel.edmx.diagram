@@ -7,6 +7,8 @@
       <Diagram DiagramId="5cdcfd2713e34289804e46c1f180ff2d" Name="Diagram1">
         <EntityTypeShape EntityType="MvcCRUDDBModel.Employee" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MvcCRUDDBModel.User_Login" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MvcCRUDDBModel.tbl_city" Width="1.5" PointX="0.75" PointY="5.375" />
+        <AssociationConnector Association="MvcCRUDDBModel.FK_Employee_tbl_city" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

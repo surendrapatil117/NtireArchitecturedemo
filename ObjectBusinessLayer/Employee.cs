@@ -22,5 +22,9 @@ namespace ObjectBusinessLayer
         public Nullable<int> Salary { get; set; }
         public Nullable<int> PF { get; set; }
         public Nullable<System.DateTime> Entrydate { get; set; }
+        public string Gender { get; set; }
+        public Nullable<int> CityId { get; set; }
+    
+        public virtual tbl_city tbl_city { get; set; }
     }
 }

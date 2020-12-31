@@ -12,9 +12,11 @@ namespace UserInterface.Areas.User.Controllers
     public class EmployeeController : Controller
     {
         private EmployeeBs objBs;
+        private CityBs myobj;
         public EmployeeController()
         {
             objBs = new EmployeeBs();
+            myobj = new CityBs();
         }
         // GET: User/Employee
         //[HttpPost]
@@ -74,8 +76,19 @@ namespace UserInterface.Areas.User.Controllers
             return employee;
         }
 
+        [Authorize(Roles = "Admin,Author")]
+        [HttpGet]
+        public ActionResult Create()
+        {
+            Employee emp = new Employee();
+            var city= myobj.GetAll();
+            // ViewBag.citydata = new SelectList(city, "CityId", "CityName");// city;
+            emp.CityList= new SelectList(city, "CityId", "CityName");
+            return View(emp);
 
-       // [HttpPost]
+        }
+
+        [HttpPost]
         [Authorize(Roles = "Admin,Author")]
         public ActionResult Create(Employee emp)
         {
@@ -105,13 +118,18 @@ namespace UserInterface.Areas.User.Controllers
         public ActionResult Edit(int id)
         {
            Employee emp= objBs.GetbyId(id);
+            var city = myobj.GetAll();
+          //  ViewBag.citydata = new SelectList(city, "CityId", "CityName");
+           emp.CityList= new SelectList(city, "CityId", "CityName");
             return View(emp);
-
         }
         [HttpPost]
         public ActionResult Edit(Employee emp)
         {
             Boolean result = false;
+            var city = myobj.GetAll();
+           // ViewBag.citydata = new SelectList(city, "CityId", "CityName");// city;
+          
             result = objBs.Update(emp);
             if (result)
             {
@@ -121,8 +139,8 @@ namespace UserInterface.Areas.User.Controllers
             else {
                 TempData["ErrorMsg"] = "Something Going Wrong";
             }
-           
-            return View();
+
+            return RedirectToAction("Edit", new { id = emp.EmployeeID });
 
 
         }

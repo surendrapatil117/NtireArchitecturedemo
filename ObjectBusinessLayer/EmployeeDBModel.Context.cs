@@ -27,5 +27,6 @@ namespace ObjectBusinessLayer
     
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<User_Login> User_Login { get; set; }
+        public virtual DbSet<tbl_city> tbl_city { get; set; }
     }
 }

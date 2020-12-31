@@ -27,13 +27,14 @@
 
                         <li>@Html.ActionLink("Show User", "Index", new { Controller = "Employee", area = "User" })</li>
 
-                       if (User.IsInRole("Admin"))
+                        if (User.IsInRole("Admin"))
                         {
                             <li>@Html.ActionLink("Create User", "Create", new { Controller = "Employee", area = "User" })</li>
 
                         }
 
                         <li>@Html.ActionLink("Logout", "Logout", new { Controller = "Home", area = "Common" })</li>
+                        <li><a href="#">@User.Identity.Name</a></li>
 
                     }
                     else

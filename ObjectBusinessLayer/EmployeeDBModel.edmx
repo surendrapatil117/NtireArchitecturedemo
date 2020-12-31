@@ -17,6 +17,15 @@
           <Property Name="Salary" Type="int" />
           <Property Name="PF" Type="int" />
           <Property Name="Entrydate" Type="datetime" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="CityId" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_city">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="User_Login">
           <Key>
@@ -27,9 +36,26 @@
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="Role" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Employee_tbl_city">
+          <End Role="tbl_city" Type="Self.tbl_city" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_city">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MvcCRUDDBModelStoreContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_city" EntityType="Self.tbl_city" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_tbl_city" Association="Self.FK_Employee_tbl_city">
+            <End Role="tbl_city" EntitySet="tbl_city" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -47,10 +73,18 @@
           <Property Name="Salary" Type="Int32" />
           <Property Name="PF" Type="Int32" />
           <Property Name="Entrydate" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CityId" Type="Int32" />
+          <NavigationProperty Name="tbl_city" Relationship="MvcCRUDDBModel.FK_Employee_tbl_city" FromRole="Employee" ToRole="tbl_city" />
         </EntityType>
         <EntityContainer Name="MvcCRUDDB1Context" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="User_Login" EntityType="MvcCRUDDBModel.User_Login" />
+          <EntitySet Name="tbl_city" EntityType="MvcCRUDDBModel.tbl_city" />
+          <AssociationSet Name="FK_Employee_tbl_city" Association="MvcCRUDDBModel.FK_Employee_tbl_city">
+            <End Role="tbl_city" EntitySet="tbl_city" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User_Login">
           <Key>
@@ -61,6 +95,26 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="tbl_city">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="MvcCRUDDBModel.FK_Employee_tbl_city" FromRole="tbl_city" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Employee_tbl_city">
+          <End Type="MvcCRUDDBModel.tbl_city" Role="tbl_city" Multiplicity="0..1" />
+          <End Type="MvcCRUDDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_city">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -70,6 +124,8 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="MvcCRUDDBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
@@ -88,6 +144,14 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_city">
+            <EntityTypeMapping TypeName="MvcCRUDDBModel.tbl_city">
+              <MappingFragment StoreEntitySet="tbl_city">
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
