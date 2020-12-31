@@ -57,4 +57,6 @@ $('#InputUploadFile').change(function () {
 
 $('.remove-photo').click(function () {
     $('#UploadImage').attr('src', "/images/no-image.jpg");
+    $('#ImagePath').val(null);
 });
+
