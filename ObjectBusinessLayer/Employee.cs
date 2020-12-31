@@ -24,6 +24,8 @@ namespace ObjectBusinessLayer
         public Nullable<System.DateTime> Entrydate { get; set; }
         public string Gender { get; set; }
         public Nullable<int> CityId { get; set; }
+        public Nullable<System.DateTime> Dob { get; set; }
+        public string ImagePath { get; set; }
     
         public virtual tbl_city tbl_city { get; set; }
     }

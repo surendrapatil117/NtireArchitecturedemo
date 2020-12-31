@@ -18,6 +18,7 @@ namespace DataAccessLayer
         public List<tbl_city> GetAll()
         {
             var city = db.tbl_city.ToList();
+            
             return city;
            
         }

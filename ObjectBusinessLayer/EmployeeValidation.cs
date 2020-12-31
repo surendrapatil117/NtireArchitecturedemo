@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Web;
 
 namespace ObjectBusinessLayer
 {
@@ -23,6 +24,7 @@ namespace ObjectBusinessLayer
     public partial class Employee
     {
         public SelectList CityList { get; set; }
+        public HttpPostedFileBase Uploadedinputfile { get; set; }
 
     }
 }

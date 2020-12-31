@@ -2,6 +2,7 @@
 using ObjectBusinessLayer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -97,6 +98,14 @@ namespace UserInterface.Areas.User.Controllers
                 emp.Entrydate = DateTime.Now;
                 if (ModelState.IsValid)
                 {
+                    string filename = Path.GetFileNameWithoutExtension(emp.Uploadedinputfile.FileName);
+                    string extension = Path.GetExtension(emp.Uploadedinputfile.FileName);
+                    filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+                    //emp.ImagePath = "~/images/" + filename;
+                    emp.ImagePath = "~/Areas/User/images/" + filename;
+                    filename = Path.Combine(Server.MapPath("~/Areas/User/images/"), filename);
+                    emp.Uploadedinputfile.SaveAs(filename);
+
                     objBs.Insert(emp);
                     TempData["SuccessMsg"] = "Data Insertd Successfully";
                     return RedirectToAction("Create");
@@ -118,6 +127,9 @@ namespace UserInterface.Areas.User.Controllers
         public ActionResult Edit(int id)
         {
            Employee emp= objBs.GetbyId(id);
+
+          
+
             var city = myobj.GetAll();
           //  ViewBag.citydata = new SelectList(city, "CityId", "CityName");
            emp.CityList= new SelectList(city, "CityId", "CityName");
@@ -128,8 +140,14 @@ namespace UserInterface.Areas.User.Controllers
         {
             Boolean result = false;
             var city = myobj.GetAll();
-           // ViewBag.citydata = new SelectList(city, "CityId", "CityName");// city;
-          
+            // ViewBag.citydata = new SelectList(city, "CityId", "CityName");// city;
+            string filename = Path.GetFileNameWithoutExtension(emp.Uploadedinputfile.FileName);
+            string extension = Path.GetExtension(emp.Uploadedinputfile.FileName);
+            filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+            //emp.ImagePath = "~/images/" + filename;
+            emp.ImagePath = "~/Areas/User/images/" + filename;
+            filename = Path.Combine(Server.MapPath("~/Areas/User/images/"), filename);
+            emp.Uploadedinputfile.SaveAs(filename);
             result = objBs.Update(emp);
             if (result)
             {

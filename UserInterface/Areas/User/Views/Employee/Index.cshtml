@@ -72,6 +72,9 @@
         <th>
             @Html.ActionLink("City", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "CityName", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
 
+        </th>
+        <th>
+            @Html.ActionLink("Dob", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "Dob", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
 
         </th>
         <th></th>
@@ -104,7 +107,9 @@
     <td>
         @Html.DisplayFor(modelItem => item.CityId)
     </td>
-
+    <td>
+        @Html.DisplayFor(modelItem => item.Dob)
+    </td>
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
 

@@ -1,0 +1,73 @@
+﻿body {
+}
+.employee-image {
+    border:1px solid #ededed;
+    border-radius:3px;
+
+}
+
+.employee-image img{
+    height:300px;
+    cursor:pointer;
+}
+    .employee-image:hover .upload-photo {
+        transform: scaleY(1);
+        transition:0.3s;
+    }
+    .employee-image .upload-photo:before{
+        content:'Change Photo';
+        color:#fff;
+        position:absolute;
+        top:7px;
+        left:100px;
+        opacity:1;
+        font-size:24px;
+    }
+    .employee-image .upload-photo {
+        background-color: #242424;
+        opacity: 0.4;
+        width: 78%;
+        height: 50px;
+        position: absolute;
+        bottom: 0;
+        left: 15px;
+        cursor: pointer;
+        transform: scaleY(0);
+        transition: 0.3s;
+        transform-origin: bottom;
+    }
+        .employee-image .upload-photo img {
+            height: 40px;
+            width: 40px;
+            color: #fff;
+            position: absolute;
+            top: 7px;
+            left: 40px;
+        }
+
+    .employee-image .remove-photo {
+        position: absolute;
+        top: 0;
+        right: 75px;
+        border: 2px solid #ddd;
+        padding: 10px;
+        cursor: pointer;
+        transform: scaleY(0);
+        transition: 0.3s;
+        transform-origin:top;
+    }
+    .employee-image:hover .remove-photo {
+        transform: scaleY(1);
+        
+
+    }
+        .employee-image .remove-photo .glyphicon-remove {
+            
+            color: #808080;
+        }
+        .employee-image .remove-photo:hover .glyphicon-remove {
+            color: #fff;
+        }
+.red {
+    color:red;
+}
