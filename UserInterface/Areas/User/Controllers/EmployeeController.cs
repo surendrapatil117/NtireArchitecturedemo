@@ -128,7 +128,11 @@ namespace UserInterface.Areas.User.Controllers
         {
            Employee emp= objBs.GetbyId(id);
 
-          
+            if (emp.ImagePath==null)
+            {
+                emp.ImagePath = "~/images/no-image.jpg";
+            }
+           
 
             var city = myobj.GetAll();
           //  ViewBag.citydata = new SelectList(city, "CityId", "CityName");
@@ -141,13 +145,19 @@ namespace UserInterface.Areas.User.Controllers
             Boolean result = false;
             var city = myobj.GetAll();
             // ViewBag.citydata = new SelectList(city, "CityId", "CityName");// city;
-            string filename = Path.GetFileNameWithoutExtension(emp.Uploadedinputfile.FileName);
-            string extension = Path.GetExtension(emp.Uploadedinputfile.FileName);
-            filename = filename + DateTime.Now.ToString("yymmssff") + extension;
-            //emp.ImagePath = "~/images/" + filename;
-            emp.ImagePath = "~/Areas/User/images/" + filename;
-            filename = Path.Combine(Server.MapPath("~/Areas/User/images/"), filename);
-            emp.Uploadedinputfile.SaveAs(filename);
+
+            if (emp.Uploadedinputfile!=null)
+            {
+                string filename = Path.GetFileNameWithoutExtension(emp.Uploadedinputfile.FileName);
+                string extension = Path.GetExtension(emp.Uploadedinputfile.FileName);
+                filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+                //emp.ImagePath = "~/images/" + filename;
+                emp.ImagePath = "~/Areas/User/images/" + filename;
+                filename = Path.Combine(Server.MapPath("~/Areas/User/images/"), filename);
+                emp.Uploadedinputfile.SaveAs(filename);
+
+            }
+           
             result = objBs.Update(emp);
             if (result)
             {
