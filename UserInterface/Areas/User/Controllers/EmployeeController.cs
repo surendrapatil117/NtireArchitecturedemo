@@ -98,14 +98,16 @@ namespace UserInterface.Areas.User.Controllers
                 emp.Entrydate = DateTime.Now;
                 if (ModelState.IsValid)
                 {
-                    string filename = Path.GetFileNameWithoutExtension(emp.Uploadedinputfile.FileName);
-                    string extension = Path.GetExtension(emp.Uploadedinputfile.FileName);
-                    filename = filename + DateTime.Now.ToString("yymmssff") + extension;
-                    //emp.ImagePath = "~/images/" + filename;
-                    emp.ImagePath = "~/Areas/User/images/" + filename;
-                    filename = Path.Combine(Server.MapPath("~/Areas/User/images/"), filename);
-                    emp.Uploadedinputfile.SaveAs(filename);
-
+                    if (emp.Uploadedinputfile != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(emp.Uploadedinputfile.FileName);
+                        string extension = Path.GetExtension(emp.Uploadedinputfile.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+                        //emp.ImagePath = "~/images/" + filename;
+                        emp.ImagePath = "~/Areas/User/images/" + filename;
+                        filename = Path.Combine(Server.MapPath("~/Areas/User/images/"), filename);
+                        emp.Uploadedinputfile.SaveAs(filename);
+                    }
                     objBs.Insert(emp);
                     TempData["SuccessMsg"] = "Data Insertd Successfully";
                     return RedirectToAction("Create");
