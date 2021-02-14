@@ -42,6 +42,7 @@
             @* @Html.DisplayNameFor(model => model.Name)*@
             @Html.ActionLink("Name", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "Name", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
         </th>
+       
         <th>
             @Html.ActionLink("Position", "Index", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), SortBy = "Position", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
         </th>
@@ -86,6 +87,7 @@
     <td>
         @Html.DisplayFor(modelItem => item.Name)
     </td>
+    
     <td>
         @Html.DisplayFor(modelItem => item.Position)
     </td>

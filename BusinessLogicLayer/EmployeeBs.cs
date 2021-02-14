@@ -159,11 +159,6 @@ namespace BusinessLogicLayer
             return employee;
         }
 
-       
-
-
-
-
         public IEnumerable<Employee> GetEmployeedata(string searchtext)
         {
            return dbobj.GetEmployeedata(searchtext);

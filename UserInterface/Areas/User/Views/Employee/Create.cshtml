@@ -127,6 +127,7 @@
                         <div class="col-md-10">
                             @*  @Html.DropDownList("ddlcity", new SelectList(new SelectListItem { Text = "0", Value = "Mumbai" }));
                 @Html.DropDownListFor(model => model.CityId, ViewBag.citydata as SelectList, "---Select City---", new { @class = "form-control" })*@
+                           
                             @Html.DropDownListFor(model => model.CityId, Model.CityList as SelectList, "---Select City---", new { @class = "form-control" })
 
                         </div>

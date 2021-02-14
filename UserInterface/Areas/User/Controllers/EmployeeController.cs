@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UserInterface.App_data;
 
 namespace UserInterface.Areas.User.Controllers
 {
@@ -14,11 +15,28 @@ namespace UserInterface.Areas.User.Controllers
     {
         private EmployeeBs objBs;
         private CityBs myobj;
+
+        private IExceptionLogging _IExceptionLogging;
+
         public EmployeeController()
         {
             objBs = new EmployeeBs();
             myobj = new CityBs();
+           _IExceptionLogging = ExceptionLogging.GetInstant;
         }
+        //singletone design pattern for exception logging
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            _IExceptionLogging.SendErrorToText(filterContext.Exception);
+            filterContext.ExceptionHandled = true;
+            TempData["ErrorMsg"] = "Something goes Wrong" + filterContext.Exception.Message;
+            // RedirectToAction("Create");
+            this.View("Error").ExecuteResult(this.ControllerContext);
+        }
+
+
+
+       
         // GET: User/Employee
         //[HttpPost]
         //public ActionResult Index(string searchtext)
@@ -93,9 +111,9 @@ namespace UserInterface.Areas.User.Controllers
         [Authorize(Roles = "Admin,Author")]
         public ActionResult Create(Employee emp)
         {
-          try {
-
-                emp.Entrydate = DateTime.Now;
+            //try {
+           // throw new NullReferenceException("Student object is null.");
+            emp.Entrydate = DateTime.Now;
                 if (ModelState.IsValid)
                 {
                     if (emp.Uploadedinputfile != null)
@@ -118,11 +136,12 @@ namespace UserInterface.Areas.User.Controllers
                 }
 
 
-              }
-            catch(Exception exec) {
-                TempData["ErrorMsg"] = "Something goes Wrong" + exec.Message;
-                return RedirectToAction("Create");
-            }
+             // }
+
+            //catch(Exception exec) {
+            //    TempData["ErrorMsg"] = "Something goes Wrong" + exec.Message;
+            //    return RedirectToAction("Create");
+            //}
 
         }
         [HttpGet]
